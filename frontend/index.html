@@ -195,6 +195,19 @@
 
 		<script>
 			window.csrf_token = "{{ csrf_token }}"
+
+			async function fetchCSRFToken() {
+            try {
+              const response = await fetch('/api/method/wms.www.wms.get_csrf_token');
+              const data = await response.json();
+              window.csrf_token = data.message;
+              console.log("CSRF Token:", window.csrf_token);
+            } catch (error) {
+              console.error("Error fetching CSRF token:", error);
+            }
+        }
+
+      fetchCSRFToken();
 		</script>
 		<script type="module" src="/src/main.js"></script>
 	</body>
