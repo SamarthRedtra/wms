@@ -227,7 +227,7 @@ doc_events = {
 # }
 
 
-website_route_rules = [{'from_route': '/wms/<path:app_path>', 'to_route': 'wms'},]
+website_route_rules = [{'from_route': '/wms/<path:app_path>', 'to_route': 'wms'}, {'from_route': '/wms#/<path:app_path>', 'to_route': 'wms'}]
 
 fixtures = [
 		{"dt":"Custom Field", "filters": [["name", "in",(
