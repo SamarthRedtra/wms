@@ -5,16 +5,14 @@
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "postinstall": "cd wms && yarn install",
-      "dev": "cd wms && yarn dev",
-      "build": "cd wms && yarn build"
+      "postinstall": "cd frontend && yarn install",
+      "dev": "cd frontend && yarn dev",
+      "build": "cd frontend && yarn build"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-      "@reduxjs/toolkit": "^2.6.1",
-      "react-redux": "^9.2.0",
       "workbox-core": "^7.3.0",
       "workbox-precaching": "^7.3.0"
     }

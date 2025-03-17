@@ -187,7 +187,7 @@
 		<script
 		src="https://unpkg.com/html5-qrcode">
 	</script>
-		<script type="module" crossorigin src="/assets/wms/frontend/assets/index-c4230fc7.js"></script>
+		<script type="module" crossorigin src="/assets/wms/frontend/assets/index-03cc7949.js"></script>
 		<link rel="stylesheet" href="/assets/wms/frontend/assets/index-c4d96a3f.css">
 	<link rel="manifest" href="/assets/wms/frontend/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/assets/wms/frontend/registerSW.js"></script></head>
 	<body class="antialiased">
@@ -197,6 +197,7 @@
 
 		<script>
 			window.csrf_token = "{{ csrf_token }}"
+
 			async function fetchCSRFToken() {
             try {
               const response = await fetch('/api/method/wms.www.wms.get_csrf_token');
