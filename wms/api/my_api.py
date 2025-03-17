@@ -18,6 +18,19 @@ def fetch_childTable(self):
 
 
 @frappe.whitelist(allow_guest=True)
+def get_current_user_info() -> dict:
+    current_user = frappe.session.user
+    if not current_user:
+        frappe.throw(_("You must be logged in to access this page."))
+    user = frappe.db.get_value(
+        "User", current_user, ["name", "first_name", "full_name", "user_image"], as_dict=True
+    )
+    user["roles"] = frappe.get_roles(current_user)
+
+    return user
+
+
+@frappe.whitelist(allow_guest=True)
 def test():
     po_name = "PUR-ORD-2024-00008"
     doc = frappe.get_doc('Purchase Order', po_name)

@@ -7,8 +7,8 @@
 <p>Purpose</p>
 <select  v-model="selectedPurpose" >
     <option value="Material Transfer">Material Transfer</option>
-    <!-- <option value="Opening Stock">Opening Stock</option>
-    <option value="Material Request">Material Request</option> -->
+   <option value="Purchase">Purchase</option>
+    <option value="Material Request">Material Request</option> 
 
 
 </select>
@@ -27,6 +27,17 @@
     <input type="date" v-model="selectedDate" />
      </div>
 				
+     <div @click="handleClick" id="containerII" class="flex justify-between text-base leading-6  rounded w-full py-1 px-4 border-none">
+
+
+<p>Project</p>
+<select v-model="selectedProject">
+<option v-for="link in projectList"   :key="link.name" :value="link.name">{{link.project_name + ' (' + link.name + ')'}}</option>
+
+
+<!-- <option value=""></option> -->
+</select>
+</div>
 				
 
 				<div  id="addSummary" class="text-base leading-6  rounded  py-6 px-4 border-none" style="width: 90%;">
@@ -347,6 +358,7 @@ const selectedItemCode = ref('');
 
 const selectedWarehouse = ref('');
 const selectedQuantity = ref(0);
+const selectedProject = ref('');
 const selectedPurchaseOrder = ref('');
 const itemsData = ref([]);
 const purchaseOrderData = ref([])
@@ -401,6 +413,25 @@ watch(selectedPurchaseOrder, async (newVal) => {
     }
 });
 
+
+
+const projectList = ref([])
+const fetchProjectList= async() => {
+
+try{
+const response = await axios.get('/api/resource/Project?fields=["name","project_name"]')
+console.log(response.data.data.map(d => d.name),"project list")
+projectList.value = response.data.data
+
+
+console.log('projectList data', projectList.value)
+}
+catch(error){
+  console.error('Error fetching warehouse:', error);
+}
+}
+
+fetchProjectList()
 
 
 
@@ -731,6 +762,7 @@ const apiData = ref([]);
                 selectedItemCode.value = firstItem.item_code || '';
                 selectedWarehouse.value = firstItem.warehouse || '';
                 selectedQuantity.value = firstItem.qty || '';
+                selectedProject.value = firstItem?.project || '';
                
             }
         } 
@@ -792,6 +824,7 @@ const saveMaterialRequest = async () => {
       item_code: item.itemCode,
       warehouse: item.warehouse,
       qty: item.quantity,
+      project: selectedProject.value,
     })),
     docstatus: 0 
   };
@@ -841,6 +874,7 @@ const submitMaterialRequest = async () => {
       item_code: item.itemCode,
       warehouse: item.warehouse,
       qty: item.quantity,
+      project: selectedProject.value,
     
       
     })),

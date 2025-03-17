@@ -9,6 +9,7 @@
     <option value=""></option>
     <option value="Material Receipt">Material Receipt</option>
     <option value="Material Transfer">Material Transfer</option>
+    <option value="Material Issue">Material Issue</option>
 
 
 </select>
@@ -19,7 +20,18 @@
 
     <p>Company</p>
     <select v-model="selectedCompany">
-    <option v-for="link in companyList"   :key="link.name" :value="link.name">{{link.name}}</option>
+    <option v-for="link in companyList"  :key="link.name" :value="link.name"> {{ link.name}}</option>
+    
+
+    <!-- <option value=""></option> -->
+    </select>
+     </div>
+     <div @click="handleClick" id="containerII" class="flex justify-between text-base leading-6  rounded w-full py-1 px-4 border-none">
+
+
+     <p>Project</p>
+    <select v-model="selectedProject">
+    <option v-for="link in projectList"   :key="link.name" :value="link.name">{{link.project_name + ' (' + link.name + ')'}}</option>
     
 
     <!-- <option value=""></option> -->
@@ -389,6 +401,23 @@ catch(error){
 fetchItemList()
 
 
+const projectList = ref([])
+const fetchProjectList= async() => {
+
+try{
+const response = await axios.get('/api/resource/Project?fields=["name","project_name"]')
+console.log(response.data.data.map(d => d.name),"project list")
+projectList.value = response.data.data
+
+
+console.log('projectList data', projectList.value)
+}
+catch(error){
+  console.error('Error fetching warehouse:', error);
+}
+}
+
+fetchProjectList()
 
 
 
@@ -594,6 +623,7 @@ const selectOption = (selectedValue) => {
 let pageTitle = ref("New")
 const selectedCompany = ref('');
 const selectedPurpose = ref('');
+const selectedProject = ref('');
 let draftNum = null; 
 
 
@@ -755,6 +785,7 @@ const apiData = ref([]);
                 selectedWarehouse.value = firstItem.s_warehouse || '';
                 selectedWarehouseII.value = firstItem.t_warehouse || '' ;
                 selectedQuantity.value = firstItem.qty || '';
+                selectedProject.value = firstItem?.project || '';
             }
         } 
 
@@ -807,11 +838,13 @@ const saveStockReconcialation = async () => {
   const requestData = {
     company: selectedCompany.value,
     stock_entry_type: selectedPurpose.value,
+    project: selectedProject.value,
     items: summaryItems.value.map(item => ({
       item_code: item.itemCode,
       s_warehouse: item.warehouse,
       t_warehouse: item.twarehouse,
-      qty: item.quantity
+      qty: item.quantity,
+      project:selectedProject.value,
     })),
     docstatus: 0 
   };
@@ -857,11 +890,13 @@ const submitStockEntry = async () => {
   const requestData = {
     company: selectedCompany.value,
     stock_entry_type: selectedPurpose.value,
+    project: selectedProject.value,
     items: summaryItems.value.map(item => ({
       item_code: item.itemCode,
       s_warehouse: item.warehouse,
       t_warehouse: item.twarehouse,
-      qty: item.quantity
+      qty: item.quantity,
+      project:selectedProject.value,
     })),
     docstatus: 1  
   };

@@ -69,15 +69,38 @@
   <script setup>
   import { IonPage, IonContent } from "@ionic/vue"
   import { inject, ref } from "vue"
-  import { Input, Button, ErrorMessage, Dialog, FeatherIcon } from "frappe-ui"
+  import { Input, Button, ErrorMessage, Dialog, FeatherIcon ,createResource} from "frappe-ui"
   import FrappeHRLogo from "@/components/icons/FrappeHRLogo.vue"
   import { useRouter } from "vue-router"
+  import { onMounted } from "vue"
+ 
   
   const email = ref(null)
   const password = ref(null)
   const session = inject("$session")
   const router = useRouter()
   
+
+  const user = createResource({
+	url: "wms.api.my_api.get_current_user_info",
+	auto: true,
+	method: 'GET',
+	onSuccess(data) {
+		console.log('daata',data)
+	},
+	onError() {
+		window.location.href = "/login?redirect-to=move-calender";
+	},
+});
+onMounted(() => {
+	if (!session.isLoggedIn) {
+		user.refresh();
+	}
+});
+
+
+
+
 //   const showInstallPrompt = ref(false)
   
   // Always show the install prompt on page load
