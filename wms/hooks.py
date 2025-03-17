@@ -226,6 +226,9 @@ doc_events = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+
+website_route_rules = [{'from_route': '/wms/<path:app_path>', 'to_route': 'wms'},]
+
 fixtures = [
 		{"dt":"Custom Field", "filters": [["name", "in",(
 			      "Pick List Item-custom_item_picked",
