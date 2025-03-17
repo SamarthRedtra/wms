@@ -25,6 +25,7 @@ export default defineConfig({
         scope: "/wms/",
         display: "standalone",
         background_color: "#ffffff",
+        display: "standalone",
         lang: "en",
         scope: "/assets/wms/frontend/",
         description: "Warehouse Management System at your fingertips",
