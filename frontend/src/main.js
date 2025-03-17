@@ -50,6 +50,60 @@ app.provide("$employee", employeeResource);
 app.provide("$socket", socket);
 app.provide("$dayjs", dayjs);
 
+
+const registerServiceWorker = async () => {
+	window.frappePushNotification = new FrappePushNotification("hrms")
+
+	if ("serviceWorker" in navigator) {
+		let serviceWorkerURL = "/assets/wms/frontend/sw.js"
+		let config = ""
+
+		try {
+			config = await window.frappePushNotification.fetchWebConfig()
+			serviceWorkerURL = `${serviceWorkerURL}?config=${encodeURIComponent(
+				JSON.stringify(config)
+			)}`
+		} catch (err) {
+			console.error("Failed to fetch FCM config", err)
+		}
+
+		navigator.serviceWorker
+			.register(serviceWorkerURL, {
+				type: "classic",
+				scope: "/wms/",
+			})
+			.then((registration) => {
+				if (config) {
+					window.frappePushNotification.initialize(registration).then(() => {
+						console.log("Frappe Push Notification initialized")
+					})
+				}
+			})
+			.catch((err) => {
+				console.error("Failed to register service worker", err)
+			})
+	} else {
+		console.error("Service worker not enabled/supported by the browser")
+	}
+}
+
+router.isReady().then(async () => {
+	if (import.meta.env.DEV) {
+		await frappeRequest({
+			url: "/api/method/wms.www.wms.get_context_for_dev",
+		}).then(async (values) => {
+			if (!window.frappe) window.frappe = {}
+			window.frappe.boot = values
+		})
+	}
+
+	await translationsPlugin.isReady();
+	registerServiceWorker()
+	app.mount("#app")
+})
+
+
+
 router.beforeEach(async (to, from, next) => {
   let isLoggedIn = session.isLoggedIn;
 

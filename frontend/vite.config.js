@@ -15,6 +15,11 @@ export default defineConfig({
     vue(),
     VitePWA({
       registerType: "autoUpdate",
+      strategies: "injectManifest",
+			injectRegister: null,
+			devOptions: {
+				enabled: true,
+			},
       devOptions: {
         enabled: true,
       },
@@ -65,6 +70,13 @@ export default defineConfig({
       include: [/tailwind.config.js/, /node_modules/],
 
     },
+    rollupOptions: {
+			output: {
+				manualChunks: {
+					"frappe-ui": ["frappe-ui"],
+				},
+			},
+		},
 	base: "/wms",
   },
   optimizeDeps: {
