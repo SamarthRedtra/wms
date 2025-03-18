@@ -1,1 +1,0 @@
-import{C as e,f as s,j as a,v as _,k as o,n as t,av as c}from"./frappe-ui-cec019df.js";const n={class:"mask"},d={class:"loader"},r={__name:"Loading",setup(i){return(p,l)=>(s(),a("div",n,[_("div",d,[o(t(c),{class:"w-8"})])]))}},u=e(r,[["__scopeId","data-v-b2317df9"]]);export{u as default};

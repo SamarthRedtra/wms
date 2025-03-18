@@ -1,0 +1,1 @@
+var n=(a,s,t)=>new Promise((c,l)=>{var i=r=>{try{e(t.next(r))}catch(o){l(o)}},p=r=>{try{e(t.throw(r))}catch(o){l(o)}},e=r=>r.done?c(r.value):Promise.resolve(r.value).then(i,p);e((t=t.apply(a,s)).next())});import{l as w}from"./index-1774bd7d.js";const E=a=>n(void 0,null,function*(){yield(yield w.create({header:"Error",message:a,buttons:["OK"]})).present()});export{E as s};

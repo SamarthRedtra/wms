@@ -170,7 +170,7 @@ def get_leave_balance_map(employee: str) -> dict[str, dict[str, float]]:
 	        'Earned Leave': {'allocated_leaves': 3.0, 'balance_leaves': 3.0},
 	}
 	"""
-	from wms.hr.doctype.leave_application.leave_application import get_leave_details
+	from hrms.hr.doctype.leave_application.leave_application import get_leave_details
 
 	date = getdate()
 	leave_map = {}

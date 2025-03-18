@@ -3,7 +3,7 @@
 	  <ion-content class="ion-padding">
 		<div class="flex h-screen w-screen flex-col justify-center bg-white">
 		  <div class="flex flex-col mx-auto gap-3 items-center">
-			<FrappeHRLogo class="h-8 w-8" />
+			<FrappeHRLogo class="h-15 w-15" />
 			<div class="text-3xl font-semibold text-gray-900 text-center">
 			  Login to WMS App
 			</div>
@@ -83,27 +83,8 @@
   const router = useRouter()
   
 
-  const user = createResource({
-	url: "wms.api.my_api.get_current_user_info",
-	auto: true,
-	method: 'GET',
-	onSuccess(data) {
-		console.log('daata',data)
-	},
-	onError() {
-		window.location.href = "/login?redirect-to=move-calender";
-	},
-});
 
 
-
-
-
-
-//   const showInstallPrompt = ref(false)
-  
-  // Always show the install prompt on page load
-//   showInstallPrompt.value = true;
   
   function submit() {
 	session.login.submit({
@@ -116,8 +97,5 @@
 	router.push({ name: 'Register' }) 
   }
   
-//   function closePrompt() {
-// 	showInstallPrompt.value = false
-//   }
   </script>
   
