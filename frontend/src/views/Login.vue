@@ -73,6 +73,8 @@
   import FrappeHRLogo from "@/components/icons/FrappeHRLogo.vue"
   import { useRouter } from "vue-router"
   import { onMounted } from "vue"
+
+
  
   
   const email = ref(null)
@@ -92,11 +94,8 @@
 		window.location.href = "/login?redirect-to=move-calender";
 	},
 });
-onMounted(() => {
-	if (!session.isLoggedIn) {
-		user.refresh();
-	}
-});
+
+
 
 
 

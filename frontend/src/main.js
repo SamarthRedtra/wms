@@ -12,6 +12,7 @@ import {
   FormControl,
 } from "frappe-ui";
 import EmptyState from "@/components/EmptyState.vue";
+import { translationsPlugin } from "./plugins/translationsPlugin.js"
 
 import { IonicVue } from "@ionic/vue";
 
@@ -24,6 +25,8 @@ import getIonicConfig from "@/utils/ionicConfig";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/vue/css/core.css";
+
+import FrappePushNotification from "../public/frappe-push-notification"
 
 /* Theme variables */
 import "./theme/variables.css";
@@ -52,20 +55,20 @@ app.provide("$dayjs", dayjs);
 
 
 const registerServiceWorker = async () => {
-	window.frappePushNotification = new FrappePushNotification("hrms")
+	window.frappePushNotification = new FrappePushNotification("wms")
 
 	if ("serviceWorker" in navigator) {
 		let serviceWorkerURL = "/assets/wms/frontend/sw.js"
 		let config = ""
 
-		try {
-			config = await window.frappePushNotification.fetchWebConfig()
-			serviceWorkerURL = `${serviceWorkerURL}?config=${encodeURIComponent(
-				JSON.stringify(config)
-			)}`
-		} catch (err) {
-			console.error("Failed to fetch FCM config", err)
-		}
+		// try {
+		// 	config = await window.frappePushNotification.fetchWebConfig()
+		// 	serviceWorkerURL = `${serviceWorkerURL}?config=${encodeURIComponent(
+		// 		JSON.stringify(config)
+		// 	)}`
+		// } catch (err) {
+		// 	console.error("Failed to fetch FCM config", err)
+		// }
 
 		navigator.serviceWorker
 			.register(serviceWorkerURL, {
@@ -97,7 +100,7 @@ router.isReady().then(async () => {
 		})
 	}
 
-	await translationsPlugin.isReady();
+	// await translationsPlugin.isReady();
 	registerServiceWorker()
 	app.mount("#app")
 })

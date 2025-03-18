@@ -17,9 +17,6 @@ export default defineConfig({
       registerType: "autoUpdate",
       strategies: "injectManifest",
 			injectRegister: null,
-			devOptions: {
-				enabled: true,
-			},
       devOptions: {
         enabled: true,
       },
@@ -27,10 +24,8 @@ export default defineConfig({
         name: "WMS App",
         short_name: "WMS",
         start_url: "/wms",
-        scope: "/wms/",
         display: "standalone",
         background_color: "#ffffff",
-        display: "standalone",
         lang: "en",
         scope: "/assets/wms/frontend/",
         description: "Warehouse Management System at your fingertips",
