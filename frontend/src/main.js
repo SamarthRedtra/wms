@@ -70,7 +70,7 @@ const registerServiceWorker = async () => {
 		navigator.serviceWorker
 			.register(serviceWorkerURL, {
 				type: "classic",
-				scope: "/wms/",
+				scope: "/assets/wms/frontend/",
 			})
 			.then((registration) => {
 				if (config) {
