@@ -1,8 +1,8 @@
 app_name = "wms"
 app_title = "WMS"
-app_publisher = "Ankita"
+app_publisher = "samarthupare"
 app_description = "WMS Resarch"
-app_email = "support@dexciss.com"
+app_email = "support@redtra.com"
 app_license = "mit"
 # required_apps = []
 
